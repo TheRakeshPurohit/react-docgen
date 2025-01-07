@@ -19,62 +19,132 @@ import type {
   TSTypeParameterInstantiation,
   TypeParameterDeclaration,
   TypeParameterInstantiation,
+  VariableDeclarator,
 } from '@babel/types';
 import getTypeIdentifier from './getTypeIdentifier.js';
-
-// TODO TESTME
+import isReactBuiltinReference from './isReactBuiltinReference.js';
+import unwrapBuiltinTSPropTypes from './unwrapBuiltinTSPropTypes.js';
 
 function getStatelessPropsPath(
   componentDefinition: NodePath,
 ): NodePath | undefined {
-  let value = resolveToValue(componentDefinition);
+  if (!componentDefinition.isFunction()) return;
 
-  if (isReactForwardRefCall(value)) {
-    value = resolveToValue(value.get('arguments')[0]!);
+  return componentDefinition.get('params')[0];
+}
+
+function getForwardRefGenericsType(
+  componentDefinition: NodePath,
+): NodePath<TSType> | null {
+  const typeParameters = componentDefinition.get('typeParameters') as NodePath<
+    TSTypeParameterInstantiation | null | undefined
+  >;
+
+  if (typeParameters && typeParameters.hasNode()) {
+    const params = typeParameters.get('params');
+
+    return params[1] ?? null;
   }
 
-  if (!value.isFunction()) return;
+  return null;
+}
 
-  return value.get('params')[0];
+function findAssignedVariableType(
+  componentDefinition: NodePath,
+): NodePath | null {
+  const variableDeclarator = componentDefinition.findParent((path) =>
+    path.isVariableDeclarator(),
+  ) as NodePath<VariableDeclarator> | null;
+
+  if (!variableDeclarator) return null;
+
+  const typeAnnotation = getTypeAnnotation(variableDeclarator.get('id'));
+
+  if (!typeAnnotation) return null;
+
+  if (typeAnnotation.isTSTypeReference()) {
+    const typeName = typeAnnotation.get('typeName');
+
+    if (
+      isReactBuiltinReference(typeName, 'FunctionComponent') ||
+      isReactBuiltinReference(typeName, 'FC') ||
+      isReactBuiltinReference(typeName, 'VoidFunctionComponent') ||
+      isReactBuiltinReference(typeName, 'VFC')
+    ) {
+      const typeParameters = typeAnnotation.get('typeParameters');
+
+      if (typeParameters.hasNode()) {
+        return typeParameters.get('params')[0] ?? null;
+      }
+    }
+  }
+
+  return null;
 }
 
 /**
- * Given an React component (stateless or class) tries to find the
- * flow type for the props. If not found or not one of the supported
- * component types returns null.
+ * Given an React component (stateless or class) tries to find
+ * flow or TS types for the props. It may find multiple types.
+ * If not found or it is not one of the supported component types,
+ *  this function returns an empty array.
  */
-export default (path: NodePath): NodePath | null => {
-  let typePath: NodePath | null = null;
+export default (componentDefinition: NodePath): NodePath[] => {
+  const typePaths: NodePath[] = [];
 
-  if (isReactComponentClass(path)) {
-    const superTypes = path.get('superTypeParameters');
+  if (isReactComponentClass(componentDefinition)) {
+    const superTypes = componentDefinition.get('superTypeParameters');
 
     if (superTypes.hasNode()) {
       const params = superTypes.get('params');
 
       if (params.length >= 1) {
-        typePath = params[params.length === 3 ? 1 : 0]!;
+        typePaths.push(params[params.length === 3 ? 1 : 0]!);
       }
     } else {
-      const propsMemberPath = getMemberValuePath(path, 'props');
+      const propsMemberPath = getMemberValuePath(componentDefinition, 'props');
 
       if (!propsMemberPath) {
-        return null;
+        return [];
       }
 
-      typePath = getTypeAnnotation(propsMemberPath.parentPath);
+      const typeAnnotation = getTypeAnnotation(propsMemberPath.parentPath);
+
+      if (typeAnnotation) {
+        typePaths.push(typeAnnotation);
+      }
+    }
+  } else {
+    if (isReactForwardRefCall(componentDefinition)) {
+      const genericTypeAnnotation =
+        getForwardRefGenericsType(componentDefinition);
+
+      if (genericTypeAnnotation) {
+        typePaths.push(genericTypeAnnotation);
+      }
+
+      componentDefinition = resolveToValue(
+        componentDefinition.get('arguments')[0]!,
+      );
     }
 
-    return typePath;
+    const propsParam = getStatelessPropsPath(componentDefinition);
+
+    if (propsParam) {
+      const typeAnnotation = getTypeAnnotation(propsParam);
+
+      if (typeAnnotation) {
+        typePaths.push(typeAnnotation);
+      }
+    }
+
+    const assignedVariableType = findAssignedVariableType(componentDefinition);
+
+    if (assignedVariableType) {
+      typePaths.push(assignedVariableType);
+    }
   }
 
-  const propsParam = getStatelessPropsPath(path);
-
-  if (propsParam) {
-    typePath = getTypeAnnotation(propsParam);
-  }
-
-  return typePath;
+  return typePaths.map((typePath) => unwrapBuiltinTSPropTypes(typePath));
 };
 
 export function applyToTypeProperties(
