@@ -1,5 +1,133 @@
 # Release Notes
 
+## 2.0.6
+
+### Patch Changes
+
+- Updated dependencies
+  [[`639bf37`](https://github.com/reactjs/react-docgen/commit/639bf3799bd74c46c2163841fefd9f3cc847dce9)]:
+  - react-docgen@7.1.1
+
+## 2.0.5
+
+### Patch Changes
+
+- [#960](https://github.com/reactjs/react-docgen/pull/960)
+  [`8b1c753`](https://github.com/reactjs/react-docgen/commit/8b1c753a353d1ff44c3eca6c5e391dec1198ab7e)
+  Thanks [@renovate](https://github.com/apps/renovate)! - update dependency
+  chalk to v5.4.1
+
+- [#958](https://github.com/reactjs/react-docgen/pull/958)
+  [`f5d644a`](https://github.com/reactjs/react-docgen/commit/f5d644a3041c227c4889059e787fcbaab57ec70e)
+  Thanks [@renovate](https://github.com/apps/renovate)! - update dependency
+  chalk to v5.4.0
+
+- [#954](https://github.com/reactjs/react-docgen/pull/954)
+  [`3c0cbb0`](https://github.com/reactjs/react-docgen/commit/3c0cbb0c2869488ac96291f1d491a93c8c1b5b06)
+  Thanks [@renovate](https://github.com/apps/renovate)! - update dependency
+  debug to v4.4.0
+
+- [#963](https://github.com/reactjs/react-docgen/pull/963)
+  [`972a1a3`](https://github.com/reactjs/react-docgen/commit/972a1a316affc8164ac957432b177bba09f1e667)
+  Thanks [@renovate](https://github.com/apps/renovate)! - update dependency
+  fast-glob to v3.3.3
+
+## 2.0.4
+
+### Patch Changes
+
+- [#931](https://github.com/reactjs/react-docgen/pull/931)
+  [`a10dd0c`](https://github.com/reactjs/react-docgen/commit/a10dd0c782f053b648cf9bab2042a9d31245fc3d)
+  Thanks [@renovate](https://github.com/apps/renovate)! - fix(deps): update
+  dependency debug to v4.3.5
+
+- [`f723041`](https://github.com/reactjs/react-docgen/commit/f7230419af3680b9ed87a323c4fdf46ead667459)
+  Thanks [@renovate[bot]](https://github.com/renovate%5Bbot%5D)! - fix(deps):
+  update dependency debug to v4.3.6
+
+- [#943](https://github.com/reactjs/react-docgen/pull/943)
+  [`ef85698`](https://github.com/reactjs/react-docgen/commit/ef8569863974599f51b9c9e1c4b9202144fe7607)
+  Thanks [@renovate](https://github.com/apps/renovate)! - update dependency
+  debug to v4.3.7
+
+- Updated dependencies
+  [[`3033ca0`](https://github.com/reactjs/react-docgen/commit/3033ca0908eb53f6ae2ee8a40eb4ef96840ff7ad)]:
+  - react-docgen@7.1.0
+
+## 2.0.3
+
+### Patch Changes
+
+- Updated dependencies
+  [[`afe8d02`](https://github.com/reactjs/react-docgen/commit/afe8d022d058a5d49c6fc144fb165c02f4a764d9)]:
+  - react-docgen@7.0.3
+
+## 2.0.2
+
+### Patch Changes
+
+- Updated dependencies
+  [[`64bf1aa`](https://github.com/reactjs/react-docgen/commit/64bf1aa078148b4d44f8634252e5b726e24b8ee5)]:
+  - react-docgen@7.0.2
+
+## 2.0.1
+
+### Patch Changes
+
+- [#869](https://github.com/reactjs/react-docgen/pull/869)
+  [`6b19e8a`](https://github.com/reactjs/react-docgen/commit/6b19e8a34744d4f3f5c93b96c1258796f440ede1)
+  Thanks [@renovate](https://github.com/apps/renovate)! - update dependency
+  fast-glob to v3.3.2
+
+- Updated dependencies
+  [[`2b51bbd`](https://github.com/reactjs/react-docgen/commit/2b51bbd47d14638ff98014a59f52c13a0c88abf9)]:
+  - react-docgen@7.0.1
+
+## 2.0.0
+
+### Major Changes
+
+- [#848](https://github.com/reactjs/react-docgen/pull/848)
+  [`dda8915`](https://github.com/reactjs/react-docgen/commit/dda8915ce9f8d5065372570d590405f2c2403bd8)
+  Thanks [@danez](https://github.com/danez)! - Drop support for Node.js
+  version 14.
+
+  The minimum supported version is now 16.14.0
+
+### Minor Changes
+
+- [`b0a46e7`](https://github.com/reactjs/react-docgen/commit/b0a46e7429f2a7449eebeff329753b25ac4226c9)
+  Thanks [@danez](https://github.com/danez)! - update dependency commander to
+  v11
+
+### Patch Changes
+
+- [#859](https://github.com/reactjs/react-docgen/pull/859)
+  [`7dd2264`](https://github.com/reactjs/react-docgen/commit/7dd22646877d9a454f7809de5cbbb72499758916)
+  Thanks [@renovate](https://github.com/apps/renovate)! - update dependency
+  commander to v11.1.0
+
+- Updated dependencies
+  [[`82154c3`](https://github.com/reactjs/react-docgen/commit/82154c3b59bf22acf3068165f87b089138fdf7ae),
+  [`6312f2f`](https://github.com/reactjs/react-docgen/commit/6312f2f47b9f679b5bf923a30855e813193ed4af),
+  [`c01d1a0`](https://github.com/reactjs/react-docgen/commit/c01d1a00fdba76cea38eebc953fd3d2dd3f12fbd),
+  [`dda8915`](https://github.com/reactjs/react-docgen/commit/dda8915ce9f8d5065372570d590405f2c2403bd8),
+  [`62e692f`](https://github.com/reactjs/react-docgen/commit/62e692fcca6f3d17dcf81ce72f2db1a95b2d694b),
+  [`74b6680`](https://github.com/reactjs/react-docgen/commit/74b6680910037b1b4b64dd57769b652bf775675e),
+  [`0641700`](https://github.com/reactjs/react-docgen/commit/0641700e4425390c0fe50e216a71e5e18322ab3b),
+  [`40ebb00`](https://github.com/reactjs/react-docgen/commit/40ebb0010a7a380f89e0c79a4a937cf9a50a3245),
+  [`82154c3`](https://github.com/reactjs/react-docgen/commit/82154c3b59bf22acf3068165f87b089138fdf7ae),
+  [`3be404e`](https://github.com/reactjs/react-docgen/commit/3be404eee6c8fc7bd867fea9d1987b7f438107d6)]:
+  - react-docgen@7.0.0
+
+## 1.0.4
+
+### Patch Changes
+
+- Updated dependencies
+  [[`8ba9ac7`](https://github.com/reactjs/react-docgen/commit/8ba9ac74279c74f06803773a1dc5acc50376b5f3)]:
+  - react-docgen@6.0.4
+
 ## 1.0.3
 
 ### Patch Changes
